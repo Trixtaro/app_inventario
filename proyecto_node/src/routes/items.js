@@ -13,9 +13,9 @@ router.get('/consultaItems',async(req,res)=>{
     });
 });
 
-router.get('/consultaItems/:criterio',(req, res)=>{
+router.get('/consultaItems/:criterio',async(req, res)=>{
     const {criterio}=req.params;
-    conexion.query('SELECT codigo, nombre, precio, iva, localizacion,fecha_llegada, fecha_salida from productos inner join items on productos.id_producto=items.id_producto where codigo=? or nombre=?',[criterio,criterio],(err,rows,fields)=>{
+   await conexion.query('SELECT codigo, nombre, precio, iva, localizacion,fecha_llegada, fecha_salida from productos inner join items on productos.id_producto=items.id_producto where codigo=? or nombre=?',[criterio,criterio],(err,rows,fields)=>{
         if(!err){
             res.json(rows[0]);
         }else {
