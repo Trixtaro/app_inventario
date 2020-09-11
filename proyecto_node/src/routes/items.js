@@ -25,6 +25,21 @@ router.get('/consultaItems/:criterio',async(req, res)=>{
     console.log(criterio);
 });
 
+router.post('/insertarItem',async(req,res)=>{
+    const {localizacion,id_producto}=req.body;
+    await conexion.query('insert into items (localizacion,fecha_llegada,id_producto) values(?,NOW(),?)',[localizacion,id_producto],(err,rows,fields)=>{
+        if(!err){
+            res.json({Status:'Item registrado registrado'});
+        }else {
+            console.log('error: '+err);
+        }
+    
+    });
+            
+      
+    });
+
+
 router.put('/actualizarItems',async(req,res)=>{
     const {codigo,id_producto,localizacion}=req.body;
    await conexion.query('update items set localizacion=?, fecha_salida=NOW() where id_producto=?',[localizacion,id_producto],(err,rows,field)=>{

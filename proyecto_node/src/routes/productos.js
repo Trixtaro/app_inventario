@@ -26,18 +26,11 @@ router.get('/consultaProductos/:criterio',async (req, res)=>{
 });
 
 router.post('/insertarProducto',async(req,res)=>{
-    const {codigo,nombre, precio, iva,localizacion,id_producto}=req.body;
+    const {codigo,nombre, precio, iva}=req.body;
                await conexion.query('insert into productos (codigo,nombre,precio,iva) values(?,?,?,?)',[codigo,nombre,precio,iva],async(err,rows,fields)=>{
                     if(!err){
-                        await conexion.query('insert into items (localizacion,fecha_llegada,id_producto) values(?,NOW(),?)',[localizacion,rows.insertId],(err,rows1,fields1)=>{
-                            if(!err){
-                                res.json({Status:'Producto registrado'});
-                            }else {
-                                console.log('error: '+err);
-                            }
-                    
-                        });
-                       
+    
+                        res.json({Status:'Producto registrado'});
                     }else {
                         console.logs('Error: '+err);
                     }
