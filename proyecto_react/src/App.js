@@ -2,11 +2,23 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
+//Pages
+import DashboardPage from './pages/Dashboard';
+import ProductosPage from './pages/ProductosPage';
+import ProductoDetalle from './pages/ProductoDetalle';
+import ActualizarProductoDetalle from './pages/ActualizarProductoPage';
+import Page404 from './pages/Page404';
+
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={() => 'hello world'}/>
+        <Route exact path="/" component={DashboardPage}/>
+        <Route exact path="/productos" component={ProductosPage}/>
+        <Route exact path="/producto/nuevo" component={ActualizarProductoDetalle}/>
+        <Route exact path="/producto/:codigo" component={ProductoDetalle}/>
+        <Route exact path="/404" component={Page404} />
+        <Redirect path="*" to="/404" />
       </Switch>
     </BrowserRouter>
   );
