@@ -7,7 +7,7 @@ router.get('/consultaProductos',async(req,res)=>{
         if(!err){
             res.json(rows);
         }else {
-            console.logs('Error en la consulta: '+err);
+            console.log('Error en la consulta: '+err);
         }
 
     });
@@ -19,20 +19,21 @@ router.get('/consultaProductos/:criterio',async (req, res)=>{
         if(!err){
             res.json(rows[0]);
         }else {
-            console.logs('Error en la consulta: '+err);
+            console.log('Error en la consulta: '+err);
         }
     });
     console.log(criterio);
 });
 
 router.post('/insertarProducto',async(req,res)=>{
+
     const {codigo,nombre, precio, iva}=req.body;
                await conexion.query('insert into productos (codigo,nombre,precio,iva) values(?,?,?,?)',[codigo,nombre,precio,iva],async(err,rows,fields)=>{
                     if(!err){
     
                         res.json({Status:'Producto registrado'});
                     }else {
-                        console.logs('Error: '+err);
+                        console.log('Error: '+err);
                     }
             
                 });
@@ -48,7 +49,7 @@ router.put('/actualizarProducto',async(req,res)=>{
             res.json("Se actualizo correctamente el producto con el código: "+codigo);
              
         }else {
-            console.logs('Error en no se pudo actualizar: '+err);
+            console.log('Error en no se pudo actualizar: '+err);
         }
     });
 

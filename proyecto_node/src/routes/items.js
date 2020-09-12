@@ -3,7 +3,7 @@ const router=express.Router();
 const conexion=require('../database');
 
 router.get('/consultaItems',async(req,res)=>{
-    await conexion.query('SELECT codigo, nombre, precio, iva, localizacion,fecha_llegada, fecha_salida from productos inner join items on productos.id_producto=items.id_producto',(err, rows, fields)=>{
+    await conexion.query('SELECT id_item, codigo, nombre, precio, iva, localizacion, CAST(fecha_llegada AS CHAR) AS fecha_llegada, CAST(fecha_salida AS CHAR) AS fecha_salida from productos inner join items on productos.id_producto=items.id_producto',(err, rows, fields)=>{
         if(!err){
             res.json(rows);
         }else {
@@ -15,9 +15,9 @@ router.get('/consultaItems',async(req,res)=>{
 
 router.get('/consultaItems/:criterio',async(req, res)=>{
     const {criterio}=req.params;
-   await conexion.query('SELECT codigo, nombre, precio, iva, localizacion,fecha_llegada, fecha_salida from productos inner join items on productos.id_producto=items.id_producto where codigo=? or nombre=?',[criterio,criterio],(err,rows,fields)=>{
+    await conexion.query('SELECT id_item, codigo, nombre, precio, iva, localizacion,fecha_llegada, fecha_salida from productos inner join items on productos.id_producto=items.id_producto where codigo=? or nombre=?',[criterio,criterio],(err,rows,fields)=>{
         if(!err){
-            res.json(rows[0]);
+            res.json(rows);
         }else {
             console.log('Error en la consulta: '+err);
         }
@@ -41,10 +41,10 @@ router.post('/insertarItem',async(req,res)=>{
 
 
 router.put('/actualizarItems',async(req,res)=>{
-    const {codigo,id_producto,localizacion}=req.body;
-   await conexion.query('update items set localizacion=?, fecha_salida=NOW() where id_producto=?',[localizacion,id_producto],(err,rows,field)=>{
+    const {id_item, localizacion}=req.body;
+   await conexion.query('update items set localizacion=?, fecha_salida=NOW() where id_item=?',[localizacion, id_item],(err,rows,field)=>{
         if(!err){
-            res.json("Se actualizo correctamente el producto con el código: "+codigo);
+            res.json("Se actualizo correctamente el producto con el código: "+id_item);
              
         }else {
             console.log('Error en no se pudo actualizar: '+err);

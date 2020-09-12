@@ -1,8 +1,12 @@
 const express=require("express");
+const Cors=require('cors')
 const app=express();
+
+require('dotenv').config()
 
 
 //Middlewares
+app.use(Cors())
 app.use(express.json());
 //Routes
 app.use(require('./routes/productos'));
