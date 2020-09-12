@@ -17,7 +17,7 @@ class ProductoDetalle extends React.Component{
             this.setState({
                 cargando: true
             })
-            console.log(`${process.env.REACT_APP_BACKEND}/consultaProductos/${this.props.match.params.codigo}`)
+
             const response = await fetch(`${process.env.REACT_APP_BACKEND}/consultaProductos/${this.props.match.params.codigo}`)
             const data = await response.json()
 
@@ -62,9 +62,9 @@ class ProductoDetalle extends React.Component{
                     {/* <button>
                         <div className="mx-2 p-2 bg-orange-400 text-white rounded-md w-24">Editar</div>
                     </button> */}
-                    <button>
+                    <Link to={`/item/${this.state.producto.id_producto}/nuevo`}>
                         <div className="mx-2 p-2 bg-indigo-600 text-white rounded-md">Agregar nuevos items</div>
-                    </button>
+                    </Link>
             </div>
         </React.Fragment>)
     }

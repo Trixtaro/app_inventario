@@ -37,23 +37,38 @@ class ActualizarProducto extends React.Component{
 
             this.setState({cargando: true});
 
-            console.log('ggg')
+            console.log(this.state.form)
+            console.log(JSON.stringify(this.state.form))
 
             const respuesta = await fetch(`${process.env.REACT_APP_BACKEND}/insertarProducto`,{
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 method: 'POST',
                 body : JSON.stringify(this.state.form)
             });
-
-            console.log(respuesta)
 
             this.setState({cargando: false, error: ''});
 
             alert('Se ingreso el producto con éxito.')
 
+            this.limpiarCampos()
+
         } catch(error){
             this.setState({cargando: false, error: 'Error inesperado. Contacte con soporte técnico', modalIsOpen: true});
             console.log(error)
         }
+    }
+
+    limpiarCampos(){
+        this.setState({
+            form: {
+                codigo: '',
+                nombre: '',
+                iva: true,
+                precio: 0
+            }
+        })
     }
 
     render(){
@@ -65,7 +80,7 @@ class ActualizarProducto extends React.Component{
                     <form action="" autoComplete="off" onSubmit={this.handleSubmit}>
                         <div className="my-1 flex flex-col">
                             <label htmlFor="">Código</label>
-                            <input type="text" className="m-3 p-1 w-full md:w-1/2 border border-gray-400 rounded-lg" name="codigo" placeholder="Código" onChange={this.handleChange} value={this.state.form.codigo} pattern="[a-zA-Z]{4,}" title="Código de 4 o más caracteres, sin espacios" required/>
+                            <input type="text" className="m-3 p-1 w-full md:w-1/2 border border-gray-400 rounded-lg" name="codigo" placeholder="Código" onChange={this.handleChange} value={this.state.form.codigo} pattern="\w{4,}" title="Código de 4 o más caracteres, sin espacios" required/>
                         </div>
                         <div className="my-1 flex flex-col">
                             <label htmlFor="">Nombre</label>

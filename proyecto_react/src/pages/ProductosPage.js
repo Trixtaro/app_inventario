@@ -55,9 +55,9 @@ class ProductosPage extends React.Component{
                     <div key={producto.codigo} className="flex flex-row justify-around my-1 hover:bg-blue-100"
                         onClick={() => this.setState({ productoSeleccionado: producto.codigo })}
                     >
-                        <div>{producto.codigo}</div>
-                        <div>{producto.nombre}</div>
-                        <div>{producto.precio.toFixed(2).toString()}</div>
+                        <div className="flex-1 px-2 text-left">{producto.codigo}</div>
+                        <div className="flex-1 px-2 text-left">{producto.nombre}</div>
+                        <div className="flex-1 px-2 text-right">$ {producto.precio.toFixed(2).toString()}</div>
                     </div> 
                 </Link>
                 )
@@ -73,7 +73,7 @@ class ProductosPage extends React.Component{
                     <h2 className="my-2 font-bold text-2xl">Lista de productos</h2>
                     <div className="flex flex-row justify-end">
                         <Link to="/producto/nuevo">
-                            <div className="bg-green-600 text-white rounded-lg p-2">Nuevo producto</div>
+                            <div className="bg-green-600 hover:bg-green-400 text-white rounded-lg p-2">Nuevo producto</div>
                         </Link>
                     </div>
                     <div>

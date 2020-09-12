@@ -13,8 +13,8 @@ const Header = props => {
                 <Link to="/productos">
                     <h2 className="mx-2 font-semibold hover:text-blue-500">Productos</h2>
                 </Link>
-                <Link to="/stock">
-                    <h2 className="mx-2 font-semibold hover:text-blue-500">Stock</h2>
+                <Link to="/items">
+                    <h2 className="mx-2 font-semibold hover:text-blue-500">Items</h2>
                 </Link>
                 <Link to="/integrantes">
                     <h2 className="mx-2 font-semibold hover:text-blue-500">Integrantes</h2>
