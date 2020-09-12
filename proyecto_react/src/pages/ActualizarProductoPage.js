@@ -40,7 +40,7 @@ class ActualizarProducto extends React.Component{
             console.log(this.state.form)
             console.log(JSON.stringify(this.state.form))
 
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND}/insertarProducto`,{
+            await fetch(`${process.env.REACT_APP_BACKEND}/insertarProducto`,{
                 headers: {
                     "Content-Type": "application/json"
                 },

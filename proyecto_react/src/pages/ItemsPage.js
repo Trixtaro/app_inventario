@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+
+import { registrarSalida } from '../functions/ItemCrud'
 
 import Header from '../components/Header';
 
@@ -40,35 +41,7 @@ class ItemsPage extends React.Component{
 
     }
 
-    registrarSalida = async() =>{
-
-        if(this.state.itemSeleccionado.fecha_salida){
-            alert('Ya se registró la salida de este item.')
-            return;
-        }
-
-        try{
-
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND}/actualizarItems`,{
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                method: 'PUT',
-                body : JSON.stringify({ id_item: this.state.itemSeleccionado.id_item })
-            });
-
-            alert('Se ingreso la salida del item con éxito.')
-
-            this.cargarItems()
-
-        } catch(error){
-            
-            console.log(error)
-        }
-
-    }
-
-    mostrarProductos = () => {
+    mostrarItems = () => {
         if(this.state.cargando)
             return 'Cargando...'
 
@@ -85,9 +58,9 @@ class ItemsPage extends React.Component{
             </li>
             {
                 this.state.items.map((item) => 
-                    <div key={item.codigo} className={"flex flex-row justify-around my-1 hover:bg-blue-100 cursor-pointer "+((this.state.itemSeleccionado.id_item == item.id_item)&&' bg-blue-200 ')}
+                    <div key={item.id_item} className={"flex flex-row justify-around my-1 hover:bg-blue-100 cursor-pointer "+((this.state.itemSeleccionado.id_item === item.id_item) && ' bg-blue-200 ')}
                         onClick={()=> {
-                            if(!this.state.itemSeleccionado.id_item)
+                            if(!this.state.itemSeleccionado.id_item || this.state.itemSeleccionado.id_item !== item.id_item)
                                 this.setState({itemSeleccionado: item})
                             else
                                 this.setState({itemSeleccionado: {}})
@@ -113,14 +86,14 @@ class ItemsPage extends React.Component{
                     <div className="flex flex-row justify-end h-16">
                         {
                             (this.state.itemSeleccionado.id_item) &&
-                            <button onClick={this.registrarSalida}>
+                            <button onClick={() => registrarSalida(this.state.itemSeleccionado, this.cargarItems)}>
                                 <div className="bg-orange-500 hover:bg-orange-400 text-white rounded-lg p-2">Registrar salida</div>
                             </button>
                         }
                     </div>
                     <div>
                         {
-                            this.mostrarProductos()
+                            this.mostrarItems()
                         }
                     </div>
                 </div>

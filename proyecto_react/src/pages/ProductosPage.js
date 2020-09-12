@@ -43,16 +43,16 @@ class ProductosPage extends React.Component{
         if(!this.state.productos || this.state.productos.length === 0)
             return <h1>No hay productos disponibles</h1>
 
-        return <ul>
-            <li className="flex flex-row justify-around font-bold my-2">
+        return <div>
+            <div className="flex flex-row justify-around font-bold my-2">
                 <div className="flex-1 bg-gray-300 p-1 mx-2 text-gray-900">Código</div>
                 <div className="flex-1 bg-gray-300 p-1 mx-2 text-gray-900">Producto</div>
                 <div className="flex-1 bg-gray-300 p-1 mx-2 text-gray-900">Precio</div>
-            </li>
+            </div>
             {
                 this.state.productos.map((producto) => 
-                <Link to={`/producto/${producto.codigo}`}>
-                    <div key={producto.codigo} className="flex flex-row justify-around my-1 hover:bg-blue-100"
+                <Link key={producto.id_producto} to={`/producto/${producto.codigo}`}>
+                    <div className="flex flex-row justify-around my-1 hover:bg-blue-100"
                         onClick={() => this.setState({ productoSeleccionado: producto.codigo })}
                     >
                         <div className="flex-1 px-2 text-left">{producto.codigo}</div>
@@ -62,7 +62,7 @@ class ProductosPage extends React.Component{
                 </Link>
                 )
             }
-        </ul>
+        </div>
     }
 
     render(){
