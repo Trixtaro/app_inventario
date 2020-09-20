@@ -37,8 +37,14 @@ class ActualizarProducto extends React.Component{
 
             this.setState({cargando: true});
 
-            console.log(this.state.form)
-            console.log(JSON.stringify(this.state.form))
+            const response = await fetch(`${process.env.REACT_APP_BACKEND}/consultaProductos/${this.state.form.codigo}`)
+            const data = await response.json()
+
+            if(data.id_producto){
+                throw new Error('Codigo ya en uso')
+            }
+
+            console.log(data)
 
             await fetch(`${process.env.REACT_APP_BACKEND}/insertarProducto`,{
                 headers: {
@@ -57,6 +63,7 @@ class ActualizarProducto extends React.Component{
         } catch(error){
             this.setState({cargando: false, error: 'Error inesperado. Contacte con soporte técnico', modalIsOpen: true});
             console.log(error)
+            alert(error)
         }
     }
 
@@ -84,7 +91,7 @@ class ActualizarProducto extends React.Component{
                         </div>
                         <div className="my-1 flex flex-col">
                             <label htmlFor="">Nombre</label>
-                            <input type="text" className="m-3 p-1 w-full md:w-1/2 border border-gray-400 rounded-lg" name="nombre" placeholder="Nombre del producto" onChange={this.handleChange} value={this.state.form.nombre} pattern="[\w -_/\.]{8,}" title="Nombre de 8 o más caracteres" required/>
+                            <input type="text" className="m-3 p-1 w-full md:w-1/2 border border-gray-400 rounded-lg" name="nombre" placeholder="Nombre del producto" onChange={this.handleChange} value={this.state.form.nombre} pattern=".{4,}" title="Nombre de 4 o más caracteres" required/>
                         </div>
                         <div className="my-1 flex flex-col">
                             <label htmlFor="">Precio</label>
