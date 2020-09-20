@@ -69,7 +69,7 @@ class ActualizarItemPage extends React.Component{
                     <form action="" autoComplete="off" onSubmit={this.handleSubmit}>
                         <div className="my-1 flex flex-col">
                             <label htmlFor="">Localización</label>
-                            <input type="text" className="m-3 p-1 w-full md:w-1/2 border border-gray-400 rounded-lg" name="localizacion" placeholder="Localización del item" onChange={this.handleChange} value={this.state.form.codigo} pattern="[\w -_/\.]{4,}" title="Código de 4 o más caracteres, sin espacios" required/>
+                            <input type="text" className="m-3 p-1 w-full md:w-1/2 border border-gray-400 rounded-lg" name="localizacion" placeholder="Localización del item" onChange={this.handleChange} value={this.state.form.codigo} pattern=".{4,}" title="Código de 4 o más caracteres, sin espacios" required/>
                         </div>
                         <div className="flex flex-row w-full md:w-1/2 justify-center">
                             <button className="bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg p-2 my-2">

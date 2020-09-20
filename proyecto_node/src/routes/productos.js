@@ -17,7 +17,10 @@ router.get('/consultaProductos/:criterio',async (req, res)=>{
     const {criterio}=req.params;
     await conexion.query('select * from productos where id_producto=? or codigo=? or nombre=?',[criterio,criterio,criterio],(err,rows,fields)=>{
         if(!err){
-            res.json(rows[0]);
+            if(rows[0])
+                res.json(rows[0]);
+            else
+                res.json({})
         }else {
             console.log('Error en la consulta: '+err);
         }
